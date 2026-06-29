@@ -1,0 +1,51 @@
+﻿@model InventoryMVC.DTOs.CreateProductDto
+
+<h2>Add Product</h2>
+@if (TempData["Success"] != null)
+{
+	<p>@TempData["Success"]</p>
+}
+<form method="post" asp-action="Save">
+	<div>
+		<label for="Name">Name:</label>
+		<input type="text" name="Name" placeholder="Product Name" />
+	</div>
+	<div>
+		<label for="Description">Description:</label>
+		<input type="text" name="Description" placeholder="Product Description" />
+	</div>
+	@* <div>
+		<label for="CategoryId">Category ID:</label>
+		<input type="number" name="CategoryId" placeholder="Category ID" />
+	</div> *@
+	<div class="mb-3">
+		<label asp-for="CategoryId"></label>
+
+		<select asp-for="CategoryId"
+				asp-items="ViewBag.Categories"
+				class="form-control">
+			<option value="">-- Select Category --</option>
+		</select>
+		<span asp-validation-for="CategoryId" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+		<label asp-for="SupplierId"></label>
+
+		<select asp-for="SupplierId"
+				asp-items="ViewBag.Suppliers"
+				class="form-control">
+			<option value="">-- Select Supplier --</option>
+		</select>
+
+		<span asp-validation-for="SupplierId" class="text-danger"></span>
+	</div>
+	<div>
+		<label for="UnitPrice">Unit Price:</label>
+		<input type="number" step="0.01" name="UnitPrice" placeholder="Unit Price" />
+	</div>
+	<div>
+		<label for="QuantityInStock">Quantity In Stock:</label>
+		<input type="number" name="QuantityInStock" placeholder="Quantity In Stock" />
+	</div>
+	<button type="submit">Add Product</button>
+</form>

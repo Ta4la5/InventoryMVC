@@ -1,0 +1,18 @@
+﻿@model List<InventoryMVC.Models.Category>
+
+<h2>Add Category</h2>
+@if (TempData["SuccessMessage"] != null)
+{
+	<p>@TempData["SuccessMessage"]</p>
+}
+<form method="post" asp-action="Create">
+	<div>
+		<label for="Name">Name:</label>
+		<input type="text" name="Name" placeholder="Category Name" />
+	</div>
+	<div>
+		<label for="Description">Description:</label>
+		<input type="text" name="Description" placeholder="Category Description" />
+	</div>
+	<button type="submit">Add Category</button>
+</form>

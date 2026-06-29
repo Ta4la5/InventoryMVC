@@ -1,0 +1,32 @@
+﻿<button style="
+    margin-bottom: 10px;
+    margin-top: 10px;
+    accent-color
+    ">
+    <a asp-action="Add">
+        Add Category
+    </a>
+</button>
+<h2>Category List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td>@category.Description</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@category.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

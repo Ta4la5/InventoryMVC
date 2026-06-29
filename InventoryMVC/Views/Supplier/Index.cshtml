@@ -1,0 +1,38 @@
+﻿<button 
+    style="
+margin-bottom: 10px;
+margin-top: 10px;
+accent-color
+">
+    <a asp-action="Add">
+        Add Supplier
+        </a></button>
+<h2>Supplier List</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Phone Number</th>
+			<th>Email</th>
+			<th>Address</th>
+			<th>Description</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var supplier in Model)
+		{
+			<tr>
+				<td>@supplier.Name</td>
+				<td>@supplier.PhoneNumber</td>
+				<td>@supplier.Email</td>
+				<td>@supplier.Address</td>
+				<td>@supplier.Description</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@supplier.Id">Edit</a> |
+					<a asp-action="Delete" asp-route-id="@supplier.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
