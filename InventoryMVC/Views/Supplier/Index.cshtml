@@ -8,7 +8,7 @@ accent-color
         Add Supplier
         </a></button>
 <h2>Supplier List</h2>
-<table>
+<table class="table table-bordered table-striped" style="width: 100%">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -23,12 +23,12 @@ accent-color
 		@foreach (var supplier in Model)
 		{
 			<tr>
-				<td>@supplier.Name</td>
-				<td>@supplier.PhoneNumber</td>
-				<td>@supplier.Email</td>
-				<td>@supplier.Address</td>
-				<td>@supplier.Description</td>
-				<td>
+				<td width="20%">@supplier.Name</td>
+				<td width="15%">@supplier.PhoneNumber</td>
+				<td width="20%">@supplier.Email</td>
+				<td width="25%">@supplier.Address</td>
+				<td width="20%">@supplier.Description</td>
+				<td width="15%">
 					<a asp-action="Edit" asp-route-id="@supplier.Id">Edit</a> |
 					<a asp-action="Delete" asp-route-id="@supplier.Id">Delete</a>
 				</td>

@@ -8,7 +8,7 @@ accent-color
         Add Product
         </a></button>
 <h2>Product List</h2>
-<table>
+<table class="table table-bordered table-striped" style="width: 100%">
     <thead>
         <tr>
             <th>Name</th>
@@ -24,13 +24,13 @@ accent-color
         @foreach (var product in Model)
         {
             <tr>
-                <td>@product.Name</td>
-                <td>@product.Description</td>
-                <td>@product.CategoryId</td>
-				<td>@product.SupplierId</td>
-                <td>@product.UnitPrice</td>
-                <td>@product.QuantityInStock</td>
-                <td>
+                <td width="20%">@product.Name</td>
+                <td width="25%">@product.Description</td>
+                <td width="15%">@product.CategoryId</td>
+				<td width="15%">@product.SupplierId</td>
+                <td width="10%">@product.UnitPrice</td>
+                <td width="15%">@product.QuantityInStock</td>
+                <td width="15%">
                     <a asp-action="Edit" asp-route-id="@product.Id">Edit</a> |
 					<a asp-action="Delete" asp-route-id="@product.Id">Delete</a>
                 </td>   
