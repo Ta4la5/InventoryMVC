@@ -27,6 +27,7 @@ namespace InventoryMVC.Controllers
             }
             return View(category);
         }
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var category = _service.GetById(id);
@@ -57,8 +58,23 @@ namespace InventoryMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(dto);
+                return View("Add", dto);
             }
+            //else if (string.IsNullOrWhiteSpace(dto.Name))
+            //{
+            //    ModelState.AddModelError("Name", "The Name field is required.");
+            //    return View(dto);
+            //}
+            //else
+            //{
+            //    // Check if the category name already exists
+            //    var existingCategory = _service.GetAll().FirstOrDefault(c => c.Name.Equals(dto.Name, StringComparison.OrdinalIgnoreCase));
+            //    if (existingCategory != null)
+            //    {
+            //        ModelState.AddModelError("Name", "A category with this name already exists.");
+            //        return View(dto);
+            //    }
+            //}
 
             _service.Create(dto);
 

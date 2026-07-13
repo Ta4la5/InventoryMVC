@@ -2,8 +2,8 @@
 using InventoryMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -17,25 +17,25 @@ namespace InventoryMVC.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("InventoryMVC.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -46,41 +46,43 @@ namespace InventoryMVC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("CreatedAt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("QuantityInStock")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("UpdatedAt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
                 });
@@ -89,28 +91,28 @@ namespace InventoryMVC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -121,14 +123,23 @@ namespace InventoryMVC.Migrations
                 {
                     b.HasOne("InventoryMVC.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("InventoryMVC.Models.Supplier", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("InventoryMVC.Models.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("InventoryMVC.Models.Supplier", b =>
                 {
                     b.Navigation("Products");
                 });
