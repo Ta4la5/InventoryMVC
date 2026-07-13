@@ -41,6 +41,13 @@ builder.Services.AddScoped<
     ISupplierService,
     SupplierService>();
 
+var port = Environment.GetEnvironmentVariable("PORT");
+
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://*:{port}");
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
